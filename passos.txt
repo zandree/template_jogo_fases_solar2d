@@ -1,0 +1,7 @@
+- criar um projeto no solar2d, sideways
+- adicionar a pasta com (ponytiled)
+- criar as pastas maps e objects
+- criar uma tela menu.lua
+-- fazer uma matriz de quadradinhos numerados de acordo com os arquivos.json que estão dentro da pasta maps.
+- criar um arquivo sceneTemplate.lua (copiar o scene template do site do solar2d)
+-- https://docs.coronalabs.com/guide/system/composer/index.html
