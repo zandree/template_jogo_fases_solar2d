@@ -32,7 +32,7 @@ end
 
 -- Função para escolher uma fase
 local function fase(e)
-    local fase = 'fase'..e.target.id
+    local fase = 'fases.fase'..e.target.id
     composer.gotoScene( fase )
 end
 
@@ -57,19 +57,20 @@ function plotaLabels(n, sceneGroup)
     -- Create the labels with texts
     local flabels = {}
     local x, y = 0, 0
+    local options = {
+        text = '',
+        x = 0,
+        y = 0,
+        font = native.systemFontBold,
+        fontSize = 25,
+        align = 'center'
+    }
+    local ftexts = {}
     for i=1, n do
         flabels[i] = display.newRoundedRect(sceneGroup, 0, 0, 40, 40, 5)
         flabels[i].x, flabels[i].y = w * .1 + (x * 45), h * .1 + (y * 45)
         flabels[i]:setFillColor(114/255, 9/255, 183/255)
-        local options = {
-            text = '',
-            x = 0,
-            y = 0,
-            font = native.systemFontBold,
-            fontSize = 25,
-            align = 'center'
-        }
-        local ftexts = {}
+        
         ftexts[i] = display.newText(options)
         ftexts[i].x, ftexts[i].y = flabels[i].x, flabels[i].y
         if i < 10 then
@@ -86,8 +87,9 @@ function plotaLabels(n, sceneGroup)
         flabels[i]:addEventListener("tap", fase)
         scrollView:insert(flabels[i])
         scrollView:insert(ftexts[i])
-        sceneGroup:insert(scrollView)
+        
     end
+    sceneGroup:insert(scrollView)
     return flabels, ftexts
 end
 

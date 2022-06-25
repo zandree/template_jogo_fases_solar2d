@@ -1,5 +1,10 @@
 local composer = require( "composer" )
- 
+local tiled = require "com.ponywolf.ponytiled"
+local physics = require "physics"
+local json = require "json"
+
+physics.start()
+
 local scene = composer.newScene()
  
 -- -----------------------------------------------------------------------------------
@@ -26,6 +31,7 @@ function voltarParaMenu(sceneGroup)
     letrax.x, letrax.y = voltar.x, voltar.y
     sceneGroup:insert(letrax)
     voltar:addEventListener("tap", function() composer.gotoScene("menu") end)
+    return voltar, letrax
 end
  
 function exibeTitulo(sceneGroup)
@@ -55,10 +61,20 @@ function scene:create( event )
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
     
-    exibeTitulo(sceneGroup)
-    voltarParaMenu(sceneGroup)
+    --exibeTitulo(sceneGroup)
+    
 
- 
+    --Criar o mapa
+    -- Load a "pixel perfect" map from a JSON export
+    display.setDefault("magTextureFilter", "nearest")
+    display.setDefault("minTextureFilter", "nearest")
+    local mapData = json.decodeFile(system.pathForFile("maps/fase01.json", system.ResourceDirectory))  -- load from json export
+    local map = tiled.new(mapData, "objects")
+    map.x,map.y = display.contentCenterX - map.designedWidth/2, display.contentCenterY - map.designedHeight/2
+
+    sceneGroup:insert(map)
+    voltarParaMenu(sceneGroup)
+     
 end
  
  
