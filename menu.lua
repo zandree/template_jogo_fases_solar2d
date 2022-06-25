@@ -32,7 +32,7 @@ end
 
 -- Função para escolher uma fase
 local function fase(e)
-    local fase = 'fases.fase'..e.target.id
+    local fase = 'fases.fase'..e.target.id 
     composer.gotoScene( fase )
 end
 
@@ -117,10 +117,10 @@ function scene:create( event )
     -- Code here runs when the scene is first created but has not yet appeared on screen
     
     local files = {}
-    files = getFiles()
+    files = getFiles() --criar o array de arquivos
 
     local flabels, ftexts
-    flabels, ftexts = plotaLabels(#files, sceneGroup)
+    flabels, ftexts = plotaLabels(#files, sceneGroup) --cria os botões das fases
 
 end
  
