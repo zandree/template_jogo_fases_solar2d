@@ -1,3 +1,9 @@
+-- -----------------------------------------------------------------------------------
+-- Este arquivo não é mais utilizado. Agora todas as fases são carregadas pelo 
+-- arquivo fases.lua por meio de passagem de parâmetros na função gotoScene.
+-- -----------------------------------------------------------------------------------
+
+
 local composer = require( "composer" )
 local tiled = require "com.ponywolf.ponytiled"
 local physics = require "physics"

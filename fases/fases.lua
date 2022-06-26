@@ -30,7 +30,11 @@ function voltarParaMenu(sceneGroup)
     local letrax = display.newText(options)
     letrax.x, letrax.y = voltar.x, voltar.y
     sceneGroup:insert(letrax)
-    voltar:addEventListener("tap", function() composer.gotoScene("menu") end)
+    local options = {
+        effect = 'zoomOutInFade',
+        time = 400
+    }
+    voltar:addEventListener("tap", function() composer.gotoScene( "menu", options ) end)
     return voltar, letrax
 end
  
@@ -60,20 +64,6 @@ function scene:create( event )
  
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
-    
-    --exibeTitulo(sceneGroup)
-    
-
-    --Criar o mapa
-    -- Load a "pixel perfect" map from a JSON export
-    display.setDefault("magTextureFilter", "nearest")
-    display.setDefault("minTextureFilter", "nearest")
-    local mapData = json.decodeFile(system.pathForFile("maps/fase03.json", system.ResourceDirectory))  -- load from json export
-    local map = tiled.new(mapData, "objects")
-    map.x,map.y = display.contentCenterX - map.designedWidth/2, display.contentCenterY - map.designedHeight/2
-
-    sceneGroup:insert(map)
-    voltarParaMenu(sceneGroup)
      
 end
  
@@ -83,6 +73,20 @@ function scene:show( event )
  
     local sceneGroup = self.view
     local phase = event.phase
+
+    --Criar o mapa
+    -- Load a "pixel perfect" map from a JSON export
+    display.setDefault("magTextureFilter", "nearest")
+    display.setDefault("minTextureFilter", "nearest")
+    
+    --local mapData = json.decodeFile(system.pathForFile("maps/fase03.json", system.ResourceDirectory))  -- load from json export -- Não é mais utilizado.
+    local faseAtual = "maps/fase"..event.params.nfase..".json" --Carrega a fase atual com base no botão clicado na tela de escolhas.
+    local mapData = json.decodeFile(system.pathForFile(faseAtual, system.ResourceDirectory))  -- load from json export
+    local map = tiled.new(mapData, "objects")
+    map.x,map.y = display.contentCenterX - map.designedWidth/2, display.contentCenterY - map.designedHeight/2
+
+    sceneGroup:insert(map)
+    voltarParaMenu(sceneGroup)
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)

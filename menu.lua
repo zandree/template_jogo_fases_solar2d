@@ -31,9 +31,20 @@ local function scrollListener( event )
 end
 
 -- Função para escolher uma fase
+-- -----------------------------------------------------------------------------------
+-- Todas as fases são carregadas pelo arquivo fases.lua por meio de passagem 
+-- de parâmetro params.nfase dessa função gotoScene.
+-- -----------------------------------------------------------------------------------
 local function fase(e)
-    local fase = 'fases.fase'..e.target.id 
-    composer.gotoScene( fase )
+    local options = {
+        effect = "zoomInOutFade",
+        time = 400,
+        params = {
+            nfase = e.target.id
+        }
+    }
+    --local fase = 'fases.fase'..e.target.id --não é mais utilizado
+    composer.gotoScene( 'fases.fases', options )
 end
 
 -- Função para desenhar os botões das fases de acordo com os arquivos presentes na pasta maps
@@ -116,11 +127,12 @@ function scene:create( event )
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
     
-    local files = {}
+    files = {}
     files = getFiles() --criar o array de arquivos
 
-    local flabels, ftexts
+    flabels, ftexts = {}
     flabels, ftexts = plotaLabels(#files, sceneGroup) --cria os botões das fases
+    --print(flabels[1].id)
 
 end
  
@@ -133,6 +145,8 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+        
+
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
